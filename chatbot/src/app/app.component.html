@@ -1,0 +1,40 @@
+<div style="background-color: #3498db;" layout="column">
+  <mat-toolbar style="background-color: #3498db;">
+    Restaurant Recommendation App
+  </mat-toolbar>
+  <div class="flex-container p-3 justify-content-center " >
+    <div>
+      <div *ngFor="let data of data" [ngClass]="data.role" class="p-2">
+        <div *ngIf="data.role == 'user'">
+          <p>You</p>
+        </div>
+        <div *ngIf="data.role == 'bot'">
+          <p>Bot</p>
+        </div>
+        <hr>
+        <p>{{data.text}} </p>
+      </div>
+      <div *ngIf="this.spinnerState">
+        <div class="bot p-3">
+          <p>Bot</p>
+          <hr>
+        </div>
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+
+    <div class="main-footer p-3">
+      <ng-container>
+        <form class="row" [formGroup]="formGroup">
+          <mat-form-field class="col-11" appearance="outline">
+            <input matInput placeholder="A five star restaurant near Bugis..." formControlName="text" [disabled]="this.spinnerState">
+          </mat-form-field>
+          <div class="col-auto">
+            <button mat-raised-button style="background-color: #2ecc71;" [disabled]="this.spinnerState" (click)="callApi()">send</button>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.user{
+ text-emphasis: 1;
+ color: white;
+ /* background-color: #d5d8dc; */
+ background: rgba(77,77,255,0.8);
+
+
+}
+
+.bot{
+    text-emphasis: 1;
+    color: #2c3e50;
+    background: rgba(213,216,220,0.8);
+
+}
+
+.main-footer{     
+    position: sticky; 
+    bottom: 0;
+}
+

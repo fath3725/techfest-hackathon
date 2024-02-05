@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+// import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
   ];
   constructor(
     fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    // private HttpHeaders: HttpHeaders
   ) {
     this.formGroup = fb.group({
       restaurantName: fb.control('', Validators.required),
@@ -46,18 +47,30 @@ export class AppComponent implements OnInit {
         restaurant: name, //string
         query: text //string
       }
+      console.log(apiCall);
       this.formGroup.reset();
       this.spinnerState = true;
 
-      const headers = new HttpHeaders()
-        .set('content-type', 'application/json');
-        // .set('Access-Control-Allow-Origin', '*');
+      // const headers = new HttpHeaders()
+      //   .set('content-type', 'application/json')
+      //   .set('Access-Control-Allow-Origin', '*');
+      // let header = new HttpHeaders({'content-type': 'application/json'});
+      
+      this.http.post('http://127.0.0.1:4000/restaurant', name).subscribe(res =>{
+        console.log('api restaurant called');
+      })
+      
+      var result = '';
+      this.http.post('http://127.0.0.1:4000/ask', text).subscribe(res =>{
+        console.log('api question called');
+        result = JSON.stringify(res).slice(11, -2);
 
-      // this.http.post('https://www.userdomain.com/api_name/data/',text, {headers: headers}).subscribe(res =>{
-      //   //add api code here
-      // })
-      setTimeout(() => this.spinnerState = false, 10000)
-      this.data.push({ "role": "bot", "text": "response" })
+        this.data.push({"role":"bot", "text": result});
+      })
+
+      setTimeout(() => this.spinnerState = false, 5000);
+
+      // this.data.push({ "role": "bot", "text": "response" })
 
     }
   }

@@ -17,7 +17,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HttpHeaders } from '@angular/common/http';
+// import { HttpHeaders } from '@angular/common/http';
 
 
 @NgModule({
@@ -40,7 +40,7 @@ import { HttpHeaders } from '@angular/common/http';
     NgbModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    HttpHeaders
+    // HttpHeaders
   ],
   providers: [
     provideClientHydration(),

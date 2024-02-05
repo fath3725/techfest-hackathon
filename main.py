@@ -20,7 +20,7 @@ def get_restaurant_info():
         # name = request.args.get('name')
         #data = request.get_json()
         #name = data.get('restaurant')
-        name = request.get_data()
+        name = request.get_data().decode("utf-8")
 
         global restaurant_info
         for element in reviews_arr:
@@ -31,6 +31,7 @@ def get_restaurant_info():
             restaurant_info = "not available"
         
         print("name:", name, restaurant_info)
+        return jsonify({'status': 'ok'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -41,12 +42,13 @@ def get_answer():
     try:  
         # question = request.args.get('question')
         #question = data.get('query')
-        question = request.get_data()
+        question = request.get_data().decode("utf-8")
         if question is None:
             question = "Summarise the reviews"
         
         #print("restaurant info", restaurant_info)
         
+        global restaurant_info
         info = {
         "messages": [
             {
@@ -67,7 +69,7 @@ def get_answer():
 
         result = response.json()
         print(result['choices'][0]['message']['content'])
-        return result['choices'][0]['message']['content']
+        return {"answer": result['choices'][0]['message']['content']}
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500

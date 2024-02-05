@@ -26,8 +26,11 @@
     <div class="py-3">
       <ng-container>
         <form class="row" [formGroup]="formGroup">
-          <mat-form-field class="col-11" appearance="outline">
-            <input matInput placeholder="A five star restaurant near Bugis..." formControlName="text" [disabled]="this.spinnerState">
+          <mat-form-field class="col-3" appearance="outline">
+            <input matInput placeholder="Restaurant Name" formControlName="restaurantName"  required [disabled]="this.spinnerState">
+          </mat-form-field>
+          <mat-form-field class="col-8" appearance="outline">
+            <input matInput placeholder="Question" formControlName="text" [disabled]="this.spinnerState">
           </mat-form-field>
           <div class="col-auto">
             <button mat-raised-button style="background-color: #2ecc71;" [disabled]="this.spinnerState" (click)="callApi()">send</button>

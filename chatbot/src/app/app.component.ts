@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     private http: HttpClient 
   ) {
     this.formGroup = fb.group({
+      restaurantName: fb.control('',Validators.required),
       text: fb.control('')
     });
   }
@@ -34,10 +35,16 @@ export class AppComponent implements OnInit {
 
   public callApi(){
     const text = this.formGroup.controls['text'].value;
-    if (!text || !text.trim()){ 
+    const name = this.formGroup.controls['restaurantName'].value;
+    if (! name || ! name.trim()){ 
     }
     else{
-      this.data.push({"role":"user","text": text})
+      const fullQuery= "Restaurant: " + name + "\nQuestion: " + text;
+      this.data.push({"role":"user","text":fullQuery })
+      const apiCall = {
+        restaurant: name, //string
+        query: text //string
+      }
       this.formGroup.reset();
       this.spinnerState=true;
       // this.http.post('https://www.userdomain.com/api_name/data/',text, {responseType: 'json'}).subscribe(res =>{
@@ -46,10 +53,7 @@ export class AppComponent implements OnInit {
       setTimeout(()=>this.spinnerState=false, 10000)
       this.data.push({"role":"bot","text": "response"})
 
-    }
-
-   
-    
+    } 
    }
 
    
